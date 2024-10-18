@@ -1,0 +1,1 @@
+Create an adminpanel-like system to manage Clients, Projects, Tasks with CRUD operations.
