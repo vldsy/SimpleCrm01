@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -40,19 +41,12 @@ class UserController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(User $user)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(User $user)
     {
-        //
+        return Inertia::render('Users/Edit', [
+            'user' => $user ]);
     }
 
     /**
@@ -60,7 +54,9 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        dd($request);
+        $user->update($request->validated());
+        return redirect()->route('users.index');
     }
 
     /**
