@@ -48,7 +48,7 @@ const rows = computed(() => {
 
 <template>
 
-  <Head title="Authors" />
+  <Head title="Users" />
 
   <AuthenticatedLayout>
     <!-- <pre>{{ JSON.stringify($page.props.users, null, 2) }}</pre> -->

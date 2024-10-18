@@ -16,8 +16,6 @@ class UserController extends Controller
      */
     public function index()
     {
-        // echo 'user controller index';
-
         return Inertia::render('Users/Index', [
             'users' => User::orderBy('created_at', 'desc')->paginate(8),
         ]);
@@ -28,7 +26,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Users/Create');
     }
 
     /**
