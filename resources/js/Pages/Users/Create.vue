@@ -4,6 +4,7 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
+import Checkbox from '@/Components/Checkbox.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 
 const form = useForm({
@@ -12,6 +13,8 @@ const form = useForm({
     email: '',
     address: '',
     phone_number: '',
+    password: '',
+    terms_accepted: true,
 });
 
 const submit = () => {
@@ -77,6 +80,22 @@ const submit = () => {
                                 v-model="form.phone_number" required autofocus autocomplete="phone number" />
 
                             <InputError class="mt-2" :message="form.errors.phone_number" />
+                        </div>
+
+                        <div class="mt-4">
+                            <InputLabel for="password" value="Password" />
+
+                            <TextInput id="password" type="password" class="mt-1 block w-full" v-model="form.password"
+                                required autocomplete="new-password" />
+
+                            <InputError class="mt-2" :message="form.errors.password" />
+                        </div>
+
+                        <div class="mt-4 block">
+                            <label class="flex items-center">
+                                <Checkbox name="terms_accepted" v-model:checked="form.terms_accepted" />
+                                <span class="ms-2 text-sm text-gray-600">Accept terms</span>
+                            </label>
                         </div>
 
                         <div class="mt-4 flex items-center justify-start">
