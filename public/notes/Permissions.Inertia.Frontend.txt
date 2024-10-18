@@ -1,0 +1,42 @@
+Implementing Roles and Permissions in Laravel with Breeze and Inertia: Frontend Integration
+
+Before using permissions in your Vue components, you need to pass permission data to the front-end. Inertia provides shared data through Laravel middleware called HandleInertiaRequests. Here's how to add a new 'can' key to 'auth' and pass all user permissions:
+
+'auth' => [
+    'user' => $request->user(),
+    'can' => $request->user()?->loadMissing('roles.permissions')
+        ->roles->flatMap(function ($role) {
+            return $role->permissions;
+        })->map(function ($permission) {
+            return [$permission['title'] => auth()->user()->can($permission['title'])];
+        })->collapse()->all(),
+],
+
+This code dynamically fetches the user’s permissions and structures them into a JSON format like this:
+
+{
+    "task_create": true,
+    "task_edit": true,
+    "task_destroy": true
+}
+
+With the permissions data available in the frontend, we can now prevent certain buttons from showing if the user doesn’t have the required permission. Let’s take an example of a “Create Task” button and conditionally render it based on the ‘task_create’ permission.
+
+In your resources/js/Pages/Tasks/Index.vue file:
+
+<div class="mb-4" v-if="$page.props.auth.can.task_create">
+    <Link :href="route('tasks.create')" class="bg-green-500 hover:bg-green-700 text-white border border-transparent font-bold px-4 py-2 text-xs uppercase tracking-widest rounded-md">
+        Create
+    </Link>
+</div>
+
+Similarly, you can apply the same approach to edit and delete buttons. Here’s an example for the edit and delete buttons:
+
+<Link v-if="$page.props.auth.can.task_edit" :href="route('tasks.edit', task)" class="bg-green-500 hover:bg-green-700 text-white border border-transparent font-bold px-4 py-2 text-xs uppercase tracking-widest rounded-md">
+    Edit
+</Link>
+<PrimaryButton v-if="$page.props.auth.can.task_destroy" @click="destroy(task.id)">
+    Delete
+</PrimaryButton>
+
+With these conditional checks in place, if a user doesn’t have permission for a specific action, the corresponding button won’t be displayed on the page.
