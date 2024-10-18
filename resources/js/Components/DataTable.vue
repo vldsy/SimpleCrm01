@@ -1,66 +1,51 @@
 <template>
-    <table>
-      <thead>
-        <tr>
-          <th v-for="field in localFields" :key="field.key">
-            <slot :name="`header(${field.key})`"
-                  v-bind="field">
-              <slot name="header"
-                    v-bind="field">
-                {{ field.key }}
-              </slot>
+  <table class="w-full text-left text-sm text-gray-500 dark:text-gray-400">
+    <thead class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+      <tr>
+        <th v-for="field in fields" :key="field.key" class="px-4 py-4">
+          <slot :name="`header(${field.key})`" v-bind="field">
+            <slot name="header" v-bind="field">
+              {{ field.key }}
             </slot>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(item, index) in rows" :key="index">
-          <td v-for="field in localFields" :key="field.key">
-            <slot :name="`cell(${field.key})`"
-                  v-bind="{ 
-                    item, 
-                    index, 
-                    value: item[field.key],
-                    field
-                  }">
-              <slot name="cell"
-                    v-bind="{ 
-                      item, 
-                      index, 
-                      value: item[field.key],
-                      field
-                    }">
-                {{ item[field.key] }}
-              </slot>
+          </slot>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="(item, index) in rows" :key="index" class="border-b dark:border-gray-700">
+        <td v-for="field in fields" :key="field.key" class="px-4 py-3">
+          <slot :name="`cell(${field.key})`" v-bind="{
+            item,
+            index,
+            value: item[field.key],
+            field
+          }">
+            <slot name="cell" v-bind="{
+              item,
+              index,
+              value: item[field.key],
+              field
+            }">
+              {{ item[field.key] }}
             </slot>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </template>
-  
-  <script lang="ts">
-  import { defineComponent, computed } from "vue";
-  
-  export default defineComponent({
-    props: {
-      rows: {
-        type: Array,
-        default: () => []
-      },
-      fields: {
-        type: [Array, null],
-        default: null
-      }
-      
-    },
-    setup(props) {
-      return {
-        localFields: computed(() => props.fields || ['key', ...Object.keys(props.rows[0]), 'row'].map(key => ({
-          key,
-          label: key
-        })))
-      }
-    }
-  });
-  </script>
+          </slot>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</template>
+
+<script setup>
+
+const { rows, fields } = defineProps({
+  rows: {
+    type: Array,
+    required: true
+  },
+  fields: {
+    type: Array,
+    required: true
+  }
+})
+
+</script>
