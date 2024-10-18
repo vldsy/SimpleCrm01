@@ -4,6 +4,7 @@ import { useForm, usePage, Head } from '@inertiajs/vue3';
 import { Link } from '@inertiajs/vue3';
 import DataTable from '@/Components/DataTable.vue'
 import { ref, computed, onMounted } from 'vue'
+import Pagination from '@/Components/Pagination.vue'
 
 const props = defineProps(['users']);
 
@@ -39,9 +40,8 @@ const fields = computed(() => {
 });
 
 const rows = computed(() => {
-  return props.users.map(({ id, first_name, last_name, email }) => ({ id, first_name, last_name, email }));
+  return props.users.data.map(({ id, first_name, last_name, email }) => ({ id, first_name, last_name, email }));
 });
-
 
 
 </script>
@@ -76,6 +76,7 @@ const rows = computed(() => {
           </div>
         </template>
       </DataTable>
+      <pagination :links="users.links" />
     </div>
   </AuthenticatedLayout>
 </template>
