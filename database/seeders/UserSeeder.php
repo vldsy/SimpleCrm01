@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+use App\RoleEnum;
 
 class UserSeeder extends Seeder
 {
@@ -27,8 +28,8 @@ class UserSeeder extends Seeder
             'terms_accepted' => true,
         ]);
 
-        $admin->assignRole('admin');
-        // better to use syncRoles('admin');
+        $admin->assignRole(RoleEnum::ADMIN);
+        // better to use syncRoles(RoleEnum::ADMIN);
         // to remove previous roles if assigned
 
         $user1 = User::create([
@@ -51,8 +52,8 @@ class UserSeeder extends Seeder
             'terms_accepted' => true,
         ]);
 
-        $user1->assignRole('user');
-        $user2->assignRole('user');
+        $user1->assignRole(RoleEnum::USER);
+        $user2->assignRole(RoleEnum::USER);
 
         User::factory()->count(7)->create();
     }

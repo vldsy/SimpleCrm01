@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\RoleEnum;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
@@ -23,7 +24,7 @@ class RolesAndPermissionsSeeder extends Seeder
         Permission::create(['name' => 'delete']);
 
         // create roles and assign permissions
-        Role::create(['name' => 'admin'])->givePermissionTo(['manage users', 'delete']);
-        Role::create(['name' => 'user']);
+        Role::create(['name' => RoleEnum::ADMIN])->givePermissionTo(['manage users', 'delete']);
+        Role::create(['name' => RoleEnum::USER]);
     }
 }
