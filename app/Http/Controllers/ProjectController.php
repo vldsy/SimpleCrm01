@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Models\User;
+use App\Models\Client;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use Inertia\Inertia;
 
 class ProjectController extends Controller
 {
@@ -13,7 +16,10 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+        $projects = Project::with(['user', 'client'])->orderBy('created_at', 'desc')->paginate(8);
+        return Inertia::render('Projects/Index', [
+            'projects' => $projects,
+        ]);
     }
 
     /**
@@ -21,7 +27,13 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        $users = User::select(['id', 'first_name', 'last_name'])->get();
+        $clients = Client::select(['id', 'company_name'])->get();
+
+        return Inertia::render('Projects/Create', [
+            'users' => $users,
+            'clients' => $clients,
+        ]);
     }
 
     /**
@@ -29,7 +41,8 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        //
+        $user = Project::create($request->validated());
+        return redirect()->route('projects.index');
     }
 
     /**
@@ -45,7 +58,14 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        $users = User::select(['id', 'first_name', 'last_name'])->get();
+        $clients = Client::select(['id', 'company_name'])->get();
+
+        return Inertia::render('Projects/Edit', [
+            'project' => $project,
+            'users' => $users,
+            'clients' => $clients,
+        ]);
     }
 
     /**
@@ -53,7 +73,8 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project)
     {
-        //
+        $project->update($request->validated());
+        return redirect()->route('projects.index');
     }
 
     /**
@@ -61,6 +82,7 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        $project->delete();
+        return redirect()->route('projects.index');
     }
 }
