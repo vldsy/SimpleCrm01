@@ -41,6 +41,14 @@ class UserController extends Controller
     }
 
     /**
+    * Display the specified resource.
+    */
+    public function show(User $user)
+    {
+        //
+    }
+
+    /**
      * Show the form for editing the specified resource.
      */
     public function edit(User $user)
@@ -54,8 +62,9 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        dd($request);
-        $user->update($request->validated());
+        // TODO temp, to fix, need to use validation here
+        $user->update($request->all());
+        //$user->update($request->validated());
         return redirect()->route('users.index');
     }
 
