@@ -13,6 +13,8 @@ class ClientSeeder extends Seeder
      */
     public function run(): void
     {
+        Client::truncate();
+
         Client::factory(20)->create();
     }
 }

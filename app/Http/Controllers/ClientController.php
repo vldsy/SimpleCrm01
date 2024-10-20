@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use App\Http\Requests\StoreClientRequest;
 use App\Http\Requests\UpdateClientRequest;
+use Illuminate\Http\Request;
+use Inertia\Inertia;
+use Inertia\Response;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 
 class ClientController extends Controller
 {
@@ -13,7 +18,9 @@ class ClientController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('Clients/Index', [
+            'clients' => Client::orderBy('created_at', 'desc')->paginate(8),
+        ]);
     }
 
     /**
@@ -21,7 +28,7 @@ class ClientController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Clients/Create');
     }
 
     /**
@@ -29,7 +36,8 @@ class ClientController extends Controller
      */
     public function store(StoreClientRequest $request)
     {
-        //
+        $user = Client::create($request->validated());
+        return redirect()->route('clients.index');
     }
 
     /**
@@ -45,7 +53,8 @@ class ClientController extends Controller
      */
     public function edit(Client $client)
     {
-        //
+        return Inertia::render('Clients/Edit', [
+            'client' => $client ]);
     }
 
     /**
@@ -53,7 +62,8 @@ class ClientController extends Controller
      */
     public function update(UpdateClientRequest $request, Client $client)
     {
-        //
+        $client->update($request->validated());
+        return redirect()->route('clients.index');
     }
 
     /**
@@ -61,6 +71,7 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        //
+        $client->delete();
+        return redirect()->route('clients.index');
     }
 }
