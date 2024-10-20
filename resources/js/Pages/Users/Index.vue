@@ -43,6 +43,11 @@ const rows = computed(() => {
     return props.users.data.map(({ id, first_name, last_name, email }) => ({ id, first_name, last_name, email }));
 });
 
+function confirmDelete(e) {
+    if (!window.confirm(" Are you sure？")) {
+        e.preventDefault();
+    }
+}
 
 </script>
 
@@ -75,6 +80,7 @@ const rows = computed(() => {
                         Edit
                         </Link>
                         <Link as="button" :href="route('users.destroy', item.id)" method="delete"
+                            @click="(e) => confirmDelete(e)"
                             class="flex items-center justify-center rounded-lg bg-red-700 px-4 py-2 text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
                         Delete
                         </Link>
