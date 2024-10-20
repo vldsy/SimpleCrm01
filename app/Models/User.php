@@ -52,4 +52,13 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function getPermissionArray()
+    {
+        return $this->getAllPermissions()->mapwithKeys(
+            function ($permission) {
+                return [$permission['name'] => true];
+            }
+        );
+    }
 }

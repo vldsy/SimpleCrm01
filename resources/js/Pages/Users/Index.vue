@@ -57,6 +57,8 @@ function confirmDelete(e) {
 
     <AuthenticatedLayout>
         <!-- <pre>{{ JSON.stringify($page.props.users, null, 2) }}</pre> -->
+        <pre>{{ JSON.stringify($page.props.auth.can, null, 2) }}</pre>
+
         <div class="overflow-x-auto">
             <Link :href="route('users.create')"
                 class="ml-6 rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
