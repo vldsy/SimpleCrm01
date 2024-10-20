@@ -27,10 +27,11 @@ class UserSeeder extends Seeder
             'terms_accepted' => true,
         ]);
 
-        // not implemented yet
-        // $admin->assignRole('admin');
+        $admin->assignRole('admin');
+        // better to use syncRoles('admin');
+        // to remove previous roles if assigned
 
-        $user = User::create([
+        $user1 = User::create([
             'first_name' => 'user',
             'last_name' => 'will be',
             'email' => 'user@user.com',
@@ -40,7 +41,7 @@ class UserSeeder extends Seeder
             'terms_accepted' => true,
         ]);
 
-        $user = User::create([
+        $user2 = User::create([
             'first_name' => 'John',
             'last_name' => 'Doe',
             'email' => 'johndoe@gmail.com',
@@ -50,8 +51,8 @@ class UserSeeder extends Seeder
             'terms_accepted' => true,
         ]);
 
-        // not implemented yet
-        // $user->assignRole('user');
+        $user1->assignRole('user');
+        $user2->assignRole('user');
 
         User::factory()->count(7)->create();
     }
