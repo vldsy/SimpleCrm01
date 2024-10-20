@@ -7,11 +7,13 @@ import TextInput from '@/Components/TextInput.vue';
 import TextArea from '@/Components/TextArea.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 
+const props = defineProps(['users', 'clients']);
+
 const form = useForm({
     title: '',
     description: '',
     deadline_at: '',
-    company_name: '',
+    user_id: '',
     company_address: '',
     company_city: '',
     company_zip: '',
@@ -67,12 +69,19 @@ const submit = () => {
                         </div>
 
                         <div>
-                            <InputLabel for="company_name" value="Company Name" />
+                            <InputLabel for="user_id" value="Assigned User" />
 
-                            <TextInput id="company_name" type="text" class="mt-1 block w-full"
-                                v-model="form.company_name" required autofocus autocomplete="name" />
+                            <select name="user_id" id="user_id" class="mt-1 block w-full" v-model="form.user_id"
+                                required autofocus>
+                                <!-- selected attribute is not working for now ==> to fix -->
+                                <option v-for="user in props.users" :value="user.id"
+                                    :selected="user.id === $page.props.auth.user.id">
+                                    {{
+                                        user.first_name + " " + user.last_name }}</option>
 
-                            <InputError class="mt-2" :message="form.errors.company_name" />
+                            </select>
+
+                            <InputError class="mt-2" :message="form.errors.user_id" />
                         </div>
 
                         <div>
