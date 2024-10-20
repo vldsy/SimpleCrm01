@@ -6,7 +6,7 @@ use App\Http\Controllers\ClientController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use App\RoleEnum;
+use App\Enums\RoleEnum;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
