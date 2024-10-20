@@ -24,12 +24,12 @@ const submit = () => {
 
 <template>
 
-    <Head title="Edit User" />
+    <Head title="Edit Client" />
 
     <AuthenticatedLayout>
         <template #header>
             <h2 class="text-xl font-semibold leading-tight text-gray-800">
-                Edit User
+                Edit Client
             </h2>
         </template>
 

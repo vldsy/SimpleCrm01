@@ -57,7 +57,7 @@ function confirmDelete(e) {
 
     <AuthenticatedLayout>
         <!-- <pre>{{ JSON.stringify($page.props.users, null, 2) }}</pre> -->
-        <pre>{{ JSON.stringify($page.props.auth.can, null, 2) }}</pre>
+        <!-- <pre>{{ JSON.stringify($page.props.auth.can, null, 2) }}</pre> -->
 
         <div class="overflow-x-auto">
             <Link :href="route('users.create')" v-if="$page.props.auth.can['manage users']"
