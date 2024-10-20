@@ -14,12 +14,12 @@ return new class () extends Migration {
             $table->id();
             $table->string('contact_name');
             $table->string('contact_email')->unique();
-            $table->string('contact_phone_number');
+            $table->string('contact_phone_number')->nullable();
             $table->string('company_name');
-            $table->string('company_address');
-            $table->string('company_city');
-            $table->string('company_zip');
-            $table->integer('company_vat');
+            $table->string('company_address')->nullable();
+            $table->string('company_city')->nullable();
+            $table->string('company_zip')->nullable();
+            $table->integer('company_vat')->nullable();
             $table->timestamps();
         });
     }

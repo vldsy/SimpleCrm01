@@ -63,12 +63,12 @@ const submit = () => {
                             <InputLabel for="contact_phone_number" value="Phone Number" />
 
                             <TextInput id="contact_phone_number" type="text" class="mt-1 block w-full"
-                                v-model="form.contact_phone_number" required autofocus autocomplete="phone number" />
+                                v-model="form.contact_phone_number" autofocus autocomplete="phone number" />
 
                             <InputError class="mt-2" :message="form.errors.contact_phone_number" />
                         </div>
 
-                        <h2 class="text-xl font-semibold leading-tight text-gray-800">
+                        <h2 class="text-xl font-semibold leading-tight text-gray-800 mt-4">
                             Company information
                         </h2>
 
@@ -85,7 +85,7 @@ const submit = () => {
                             <InputLabel for="company_address" value="Company Address" />
 
                             <TextInput id="company_address" type="text" class="mt-1 block w-full"
-                                v-model="form.company_address" required autofocus autocomplete="address" />
+                                v-model="form.company_address" autofocus autocomplete="address" />
 
                             <InputError class="mt-2" :message="form.errors.company_address" />
                         </div>
@@ -94,7 +94,7 @@ const submit = () => {
                             <InputLabel for="company_city" value="Company City" />
 
                             <TextInput id="company_city" type="text" class="mt-1 block w-full"
-                                v-model="form.company_city" required autofocus autocomplete="name" />
+                                v-model="form.company_city" autofocus autocomplete="name" />
 
                             <InputError class="mt-2" :message="form.errors.company_city" />
                         </div>
@@ -103,7 +103,7 @@ const submit = () => {
                             <InputLabel for="company_zip" value="Company Zip" />
 
                             <TextInput id="company_zip" type="text" class="mt-1 block w-full" v-model="form.company_zip"
-                                required autofocus autocomplete="name" />
+                                autofocus autocomplete="name" />
 
                             <InputError class="mt-2" :message="form.errors.company_zip" />
                         </div>
@@ -112,7 +112,7 @@ const submit = () => {
                             <InputLabel for="company_vat" value="Company Name" />
 
                             <TextInput id="company_vat" type="text" class="mt-1 block w-full" v-model="form.company_vat"
-                                required autofocus autocomplete="name" />
+                                autofocus autocomplete="name" />
 
                             <InputError class="mt-2" :message="form.errors.company_vat" />
                         </div>
