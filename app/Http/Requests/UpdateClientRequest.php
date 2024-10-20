@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateClientRequest extends FormRequest
 {
@@ -22,7 +23,14 @@ class UpdateClientRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'contact_name' => ['required', 'string', 'max:255'],
+            'contact_email' => ['required', 'email', Rule::unique('clients')->ignore($this->client)],
+            'contact_phone_number' => ['nullable'],
+            'company_name' => ['required', 'string'],
+            'company_address' => ['nullable'],
+            'company_city' => ['nullable'],
+            'company_zip' => ['integer', 'nullable'],
+            'company_vat' => ['numeric', 'nullable'],
         ];
     }
 }
