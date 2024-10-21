@@ -6,7 +6,7 @@ import DataTable from '@/Components/DataTable.vue'
 import { ref, computed, onMounted } from 'vue'
 import Pagination from '@/Components/Pagination.vue'
 
-const props = defineProps(['projects']);
+const props = defineProps(['tasks']);
 
 const fields = computed(() => {
     return [
@@ -20,7 +20,7 @@ const fields = computed(() => {
 });
 
 const rows = computed(() => {
-    return props.projects.data.map((
+    return props.tasks.data.map((
         { id, title, user, client, deadline_at, status }
     ) => (
         { id, title, assigned_to: user.first_name + " " + user.last_name, client: client.company_name, deadline_at, status }
@@ -37,7 +37,7 @@ function confirmDelete(e) {
 
 <template>
 
-    <Head title="Projects" />
+    <Head title="Tasks" />
 
     <AuthenticatedLayout>
         <!-- <pre>{{ JSON.stringify($page.props.users, null, 2) }}</pre> -->
@@ -46,7 +46,7 @@ function confirmDelete(e) {
         <div class="overflow-x-auto">
             <Link :href="route('projects.create')"
                 class="ml-6 rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-            Add new project
+            Add new task
             </Link>
 
             <DataTable class="mt-4" :rows="rows" :fields="fields">
@@ -55,11 +55,11 @@ function confirmDelete(e) {
                 </template>
                 <template #cell(actions)="{ item }">
                     <div class="flex items-center px-0 py-3">
-                        <Link as="button" :href="route('projects.edit', item.id)" method="get"
+                        <Link as="button" :href="route('tasks.edit', item.id)" method="get"
                             class="mr-2 flex items-center justify-center rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
                         Edit
                         </Link>
-                        <Link as="button" :href="route('projects.destroy', item.id)" method="delete"
+                        <Link as="button" :href="route('tasks.destroy', item.id)" method="delete"
                             @click="(e) => confirmDelete(e)"
                             class="flex items-center justify-center rounded-lg bg-red-700 px-4 py-2 text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
                         Delete
@@ -67,7 +67,7 @@ function confirmDelete(e) {
                     </div>
                 </template>
             </DataTable>
-            <pagination :links="projects.links" />
+            <pagination :links="tasks.links" />
         </div>
     </AuthenticatedLayout>
 </template>
