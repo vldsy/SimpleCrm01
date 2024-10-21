@@ -14,10 +14,8 @@ const form = useForm({
     description: '',
     deadline_at: '',
     user_id: '',
-    company_address: '',
-    company_city: '',
-    company_zip: '',
-    company_vat: '',
+    client_id: '',
+    status: '',
 });
 
 const submit = () => {
@@ -71,8 +69,9 @@ const submit = () => {
                         <div>
                             <InputLabel for="user_id" value="Assigned User" />
 
-                            <select name="user_id" id="user_id" class="mt-1 block w-full" v-model="form.user_id"
-                                required autofocus>
+                            <select name="user_id" id="user_id"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                v-model="form.user_id" required autofocus>
                                 <!-- selected attribute is not working for now ==> to fix -->
                                 <option v-for="user in props.users" :value="user.id"
                                     :selected="user.id === $page.props.auth.user.id">
@@ -85,39 +84,44 @@ const submit = () => {
                         </div>
 
                         <div>
-                            <InputLabel for="company_address" value="Company Address" />
+                            <InputLabel for="client_id" value="Assigned Client" />
 
-                            <TextInput id="company_address" type="text" class="mt-1 block w-full"
-                                v-model="form.company_address" autofocus autocomplete="address" />
+                            <select name="client_id" id="client_id"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                v-model="form.client_id" required autofocus>
+                                <!-- to do: add selected attribute  -->
+                                <option v-for="client in props.clients" :value="client.id">
+                                    {{ client.company_name }}
+                                </option>
+                            </select>
 
-                            <InputError class="mt-2" :message="form.errors.company_address" />
+                            <InputError class="mt-2" :message="form.errors.client_id" />
                         </div>
 
                         <div>
-                            <InputLabel for="company_city" value="Company City" />
+                            <InputLabel for="status" value="Status" />
 
-                            <TextInput id="company_city" type="text" class="mt-1 block w-full"
-                                v-model="form.company_city" autofocus autocomplete="name" />
+                            <select name="status" id="status"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                v-model="form.status" required autofocus>
+                                <option value="open">
+                                    Open
+                                </option>
+                                <option value="in progress">
+                                    In progress
+                                </option>
+                                <option value="blocked">
+                                    Blocked
+                                </option>
+                                <option value="cancelled">
+                                    Cancelled
+                                </option>
+                                <option value="completed">
+                                    Completed
+                                </option>
+                            </select>
 
-                            <InputError class="mt-2" :message="form.errors.company_city" />
-                        </div>
-
-                        <div>
-                            <InputLabel for="company_zip" value="Company Zip" />
-
-                            <TextInput id="company_zip" type="text" class="mt-1 block w-full" v-model="form.company_zip"
-                                autofocus autocomplete="name" />
-
-                            <InputError class="mt-2" :message="form.errors.company_zip" />
-                        </div>
-
-                        <div>
-                            <InputLabel for="company_vat" value="Company Name" />
-
-                            <TextInput id="company_vat" type="text" class="mt-1 block w-full" v-model="form.company_vat"
-                                autofocus autocomplete="name" />
-
-                            <InputError class="mt-2" :message="form.errors.company_vat" />
+                            <InputError class="mt-2" :message="form.errors.status" />
                         </div>
 
                         <div class="mt-4 flex items-center justify-start">
