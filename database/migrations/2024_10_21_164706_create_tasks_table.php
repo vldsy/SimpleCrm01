@@ -14,9 +14,9 @@ return new class () extends Migration {
             $table->id();
             $table->string('title');
             $table->text('description');
-            $table->foreingId('user_id')->constrained();
-            $table->foreingId('client_id')->constrained();
-            $table->foreingId('project_id')->constrained();
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('client_id')->constrained();
+            $table->foreignId('project_id')->constrained();
             $table->date('deadline_at');
             $table->string('status');
             $table->timestamps();
