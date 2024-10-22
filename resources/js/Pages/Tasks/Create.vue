@@ -7,7 +7,7 @@ import TextInput from '@/Components/TextInput.vue';
 import TextArea from '@/Components/TextArea.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 
-const props = defineProps(['users', 'clients']);
+const props = defineProps(['users', 'clients', 'projects']);
 
 const form = useForm({
     title: '',
@@ -15,22 +15,23 @@ const form = useForm({
     deadline_at: '',
     user_id: '',
     client_id: '',
+    project_id: '',
     status: '',
 });
 
 const submit = () => {
-    form.post(route('projects.store'));
+    form.post(route('tasks.store'));
 };
 </script>
 
 <template>
 
-    <Head title="Create Project" />
+    <Head title="Create Task" />
 
     <AuthenticatedLayout>
         <template #header>
             <h2 class="text-xl font-semibold leading-tight text-gray-800">
-                Create Project
+                Create Task
             </h2>
         </template>
 
@@ -99,6 +100,21 @@ const submit = () => {
                         </div>
 
                         <div>
+                            <InputLabel for="project_id" value="Assigned Project" />
+
+                            <select name="project_id" id="project_id"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                v-model="form.project_id" required autofocus>
+                                <!-- to do: add selected attribute  -->
+                                <option v-for="project in props.projects" :value="project.id">
+                                    {{ project.title }}
+                                </option>
+                            </select>
+
+                            <InputError class="mt-2" :message="form.errors.project_id" />
+                        </div>
+
+                        <div>
                             <InputLabel for="status" value="Status" />
 
                             <select name="status" id="status"
@@ -113,11 +129,14 @@ const submit = () => {
                                 <option value="blocked">
                                     Blocked
                                 </option>
-                                <option value="cancelled">
-                                    Cancelled
+                                <option value="pending">
+                                    Pending
                                 </option>
-                                <option value="completed">
-                                    Completed
+                                <option value="waiting client">
+                                    Waiting Client
+                                </option>
+                                <option value="closed">
+                                    Closed
                                 </option>
                             </select>
 
