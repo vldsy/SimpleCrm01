@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\PermissionEnum;
 use App\Models\Client;
+use App\Models\Project;
+use App\Models\Task;
 use App\Http\Requests\StoreClientRequest;
 use App\Http\Requests\UpdateClientRequest;
 use Illuminate\Http\Request;
@@ -10,6 +13,7 @@ use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class ClientController extends Controller
 {
@@ -71,6 +75,17 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
+        Gate::authorize(PermissionEnum::DELETE_CLIENTS->value);
+
+        $client->tasks()->delete();
+
+        foreach ($client->projects() as $project) {
+            $project->tasks()->delete();
+        }
+
+        $client->projects()->delete();
+
+        dd($client);
         $client->delete();
         return redirect()->route('clients.index');
     }
