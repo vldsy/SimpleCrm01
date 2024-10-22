@@ -24,7 +24,13 @@ class UpdateTaskRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title'         => ['required'],
+            'description'   => ['required'],
+            'user_id'       => ['required', Rule::exists('users', 'id')],
+            'client_id'     => ['required', Rule::exists('clients', 'id')],
+            'project_id'    => ['required', Rule::exists('projects', 'id')],
+            'deadline_at'   => ['required', 'date', 'after:yesterday'], // extra restriction for created task
+            'status'        => ['required', Rule::enum(TaskStatus::class)],
         ];
     }
 }
