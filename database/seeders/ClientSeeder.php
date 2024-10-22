@@ -13,7 +13,8 @@ class ClientSeeder extends Seeder
      */
     public function run(): void
     {
-        Client::truncate();
+        // cannot use, the table is referenced in foreign key constraint
+        // Client::truncate();
 
         Client::factory(20)->create();
     }

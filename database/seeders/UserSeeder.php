@@ -16,7 +16,8 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::truncate();
+        // cannot use, the table is referenced in foreign key constraint
+        //User::truncate();
 
         $admin = User::create([
             'first_name' => 'admin',

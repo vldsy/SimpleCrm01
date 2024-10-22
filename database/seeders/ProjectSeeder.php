@@ -13,7 +13,8 @@ class ProjectSeeder extends Seeder
      */
     public function run(): void
     {
-        Project::truncate();
+        // cannot use, the table is referenced in foreign key constraint
+        // Project::truncate();
 
         Project::factory(20)->create();
     }
