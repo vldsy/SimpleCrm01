@@ -20,11 +20,23 @@ class ClientController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $clientsQuery = Client::query();
+        $this->applySearch($clientsQuery, $request->search);
+
         return Inertia::render('Clients/Index', [
-            'clients' => Client::orderBy('created_at', 'desc')->paginate(8),
+            'clients' => $clientsQuery->orderBy('created_at', 'desc')->paginate(8),
+            'search' => $request->search ?? '',
         ]);
+    }
+
+    protected function applySearch($query, $search)
+    {
+        return $query->when($search, function ($query, $search) {
+            $query->where('company_name', 'like', '%'.$search.'%')
+            ->orWhere('company_address', 'like', '%'.$search.'%');
+        });
     }
 
     /**
