@@ -77,15 +77,6 @@ class ClientController extends Controller
     {
         Gate::authorize(PermissionEnum::DELETE_CLIENTS->value);
 
-        $client->tasks()->delete();
-
-        foreach ($client->projects() as $project) {
-            $project->tasks()->delete();
-        }
-
-        $client->projects()->delete();
-
-        dd($client);
         $client->delete();
         return redirect()->route('clients.index');
     }

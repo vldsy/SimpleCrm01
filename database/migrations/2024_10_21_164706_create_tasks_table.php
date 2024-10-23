@@ -20,6 +20,7 @@ return new class () extends Migration {
             $table->date('deadline_at');
             $table->string('status');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

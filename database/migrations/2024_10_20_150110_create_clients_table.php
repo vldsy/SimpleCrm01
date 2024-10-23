@@ -21,6 +21,7 @@ return new class () extends Migration {
             $table->string('company_zip')->nullable();
             $table->integer('company_vat')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

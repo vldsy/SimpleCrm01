@@ -24,6 +24,7 @@ return new class () extends Migration {
             // cancelled
             // completed
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
